@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using ProyectoProgra5.Models;
+
 namespace ProyectoProgra5
 {
     public class Program
@@ -9,7 +13,24 @@ namespace ProyectoProgra5
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+			//ConnectrionString
+			var connection = builder.Configuration.GetConnectionString("SourceConnection");
+			builder.Services.AddDbContext<ProyectoProgra5Context>(options => options.UseSqlServer(connection));
+
+			// Configure cookie based authentication
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+							   .AddCookie(options =>
+							   {
+								   // Specify where to redirect un-authenticated users
+								   options.LoginPath = "/Security/Index";
+
+								   // Specify the name of the auth cookie.
+								   // ASP.NET picks a dumb name by default.
+								   options.Cookie.Name = "LoginCookieWebsite";
+								   options.AccessDeniedPath = "/Security/Unauthorized";
+							   });
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -24,7 +45,12 @@ namespace ProyectoProgra5
 
             app.UseRouting();
 
-            app.UseAuthorization();
+			// Configure authentication.
+			app.UseAuthentication();
+			app.UseAuthorization();
+			app.UseCookiePolicy();
+
+			app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
