@@ -1,0 +1,36 @@
+﻿@model ProyectoProgra5.Models.Partido
+
+@{
+    ViewData["Title"] = "Crear Partido";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="text-center">Formulario para ingresar un Partido</h1>
+    </div>
+    <hr />
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <!--Input Nombre-->
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control">
+            </div>
+            <!--Input Usuario-->
+            <div class="mb-3">
+                <label asp-for="Fundacion " type="datetime-local" max="yyyy-MM-ddTHH:mm" class="form-label">Fecha Fundacion</label>
+                <input asp-for="Fundacion" class="form-control">
+            </div>
+            <!--Input Contraseña-->
+            <div class="mb-3">
+                <label asp-for="Lider" class="form-label">Nombre del Lider</label>
+                <input asp-for="Lider" class="form-control">
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-success">Agregar</button>
+                <a href="/Partidos/" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+        
+    </div>
+</div>

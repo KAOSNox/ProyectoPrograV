@@ -15,6 +15,12 @@ public partial class ProyectoProgra5Context : DbContext
     {
     }
 
+    public virtual DbSet<Candidato> Candidatos { get; set; }
+
+    public virtual DbSet<Cargo> Cargos { get; set; }
+
+    public virtual DbSet<Partido> Partidos { get; set; }
+
     public virtual DbSet<Rol> Rols { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -23,10 +29,56 @@ public partial class ProyectoProgra5Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=localhost\\SQLEXPRESS01; database=ProyectoProgra5; integrated security=true;Trust Server Certificate=true");
+        => optionsBuilder.UseSqlServer("server=localhost\\SQLEXPRESS; database=ProyectoProgra5; integrated security=true;Trust Server Certificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Candidato>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Candidat__3214EC27DA73A49C");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Cargo)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Experencia)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Partido)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Cargo>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Cargos__3214EC27F0B04937");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Partido>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Partidos__3214EC271557FA7B");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Fundacion).HasColumnType("date");
+            entity.Property(e => e.Lider)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Rol>(entity =>
         {
             entity.HasKey(e => e.IdRol).HasName("PK__Rol__3C872F7646002266");

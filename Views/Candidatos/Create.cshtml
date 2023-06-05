@@ -1,0 +1,41 @@
+﻿@model ProyectoProgra5.Models.Candidato
+
+
+@{
+    ViewData["Title"] = "Agregar Candidato";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="text-center">Formulario para ingresar un nuevo Candidato</h1>
+    </div>
+    <hr />
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <!--Input Nombre-->
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control">
+            </div>
+            <!--Input Usuario-->
+            <div class="mb-3">
+                <label asp-for="Partido" class="form-label">Partido</label>
+                <select asp-for="Partido" class="form-select" asp-items="@ViewBag.Partidos"></select>
+            </div>
+            <!--Input Contraseña-->
+            <div class="mb-3">
+                <label asp-for="Cargo" class="form-label">Cargo Politico</label>
+                <select asp-for="Cargo" class="form-select" asp-items="@ViewBag.Cargos"></select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Experencia" class="form-label">Experiencia</label>
+                <input asp-for="Experencia" class="form-control">
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-success">Agregar</button>
+                <a href="/Candidatos/" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+        
+    </div>
+</div>

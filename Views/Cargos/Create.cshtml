@@ -1,0 +1,33 @@
+﻿@model ProyectoProgra5.Models.Cargo
+
+@{
+    ViewData["Title"] = "Crear Partido";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="text-center">Formulario para ingresar un Cargo</h1>
+    </div>
+    <hr />
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <!--Input Nombre-->
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">Cargo</label>
+                <select asp-for="Nombre" class="form-select">
+                    <option value="Alcalde">Alcalde</option>
+                </select>
+            </div>
+            <!--Input Descripcion-->
+            <div class="mb-3">
+                <label asp-for="Descripcion " class="form-label">Descripcion del cargo</label>
+                <input asp-for="Descripcion" class="form-control">
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-success">Agregar</button>
+                <a href="/Cargos/" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+        
+    </div>
+</div>

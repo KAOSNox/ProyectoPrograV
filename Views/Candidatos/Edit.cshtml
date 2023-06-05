@@ -1,0 +1,40 @@
+﻿@model ProyectoProgra5.Models.Candidato
+
+@{
+    ViewData["Title"] = "Editar Candidato";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="text-center">Formulario para editar un candidato</h1>
+    </div>
+    <hr />
+    <div class="card-body">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <!--Input Nombre-->
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control" value="@Model.Nombre">
+            </div>
+            <!--Input Usuario-->
+            <div class="mb-3">
+                <label asp-for="Partido" class="form-label">Partido</label>
+                <select asp-for="Partido" class="form-select" asp-items="@ViewBag.Partidos"></select>
+            </div>
+            <!--Input Contraseña-->
+            <div class="mb-3">
+                <label asp-for="Cargo" class="form-label">Cargo Politico</label>
+                <select asp-for="Cargo" class="form-select" asp-items="@ViewBag.Cargos"></select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Experencia" class="form-label">Nombre del Lider</label>
+                <input asp-for="Experencia" class="form-control" value="@Model.Experencia">
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-warning">Editar</button>
+                <a href="/Candidatos/" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+        
+    </div>
+</div>
