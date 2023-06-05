@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoProgra5.Models;
 using ProyectoProgra5.Models.Usuarios;
 
 namespace ProyectoProgra5.Controllers
 {
+	[Authorize(Roles = "Administrador")]
 	public class UsuariosController : Controller
 	{
 		private readonly ProyectoProgra5Context _context;

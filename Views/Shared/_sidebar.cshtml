@@ -1,4 +1,9 @@
-﻿<nav id="sidebar" class="sidebar js-sidebar">
+﻿@using System.Security.Claims;
+@{
+    string roleName = User.FindFirstValue(ClaimTypes.Role);
+}
+
+<nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="/">
             <span class="align-middle">Dashboard</span>
@@ -15,24 +20,39 @@
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Inicio</span>
                 </a>
             </li>
-            <!--Administracion-->
-            <li class="sidebar-header">
-                Configuracion
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="/Usuarios/Index">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Usuarios</span>
-                </a>
-                <a class="sidebar-link" href="/Partidos/Index">
-                    <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Partidos</span>
-                </a>
-                <a class="sidebar-link" href="/Cargos/Index">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Cargos Publicos</span>
-                </a>
-                <a class="sidebar-link" href="/Candidatos/Index">
-                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Candidatos</span>
-                </a>
-            </li>
+            <!-- Seccion para el usuario -->
+            @if(roleName == "Usuario")
+            {
+                <li class="sidebar-header">
+                    Votacion
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/">
+                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Votar</span>
+                    </a>
+                </li>
+            }else if(roleName == "Administrador")
+            {
+                <!--Administracion-->
+                <li class="sidebar-header">
+                    Configuracion
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/Usuarios/Index">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Usuarios</span>
+                    </a>
+                    <a class="sidebar-link" href="/Partidos/Index">
+                        <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Partidos</span>
+                    </a>
+                    <a class="sidebar-link" href="/Cargos/Index">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Cargos Publicos</span>
+                    </a>
+                    <a class="sidebar-link" href="/Candidatos/Index">
+                        <i class="align-middle" data-feather="users"></i> <span class="align-middle">Candidatos</span>
+                    </a>
+                </li>
+            }
+           
         </ul>
     </div>
 </nav>

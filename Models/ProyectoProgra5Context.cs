@@ -27,6 +27,8 @@ public partial class ProyectoProgra5Context : DbContext
 
     public virtual DbSet<UserxRol> UserxRols { get; set; }
 
+    public virtual DbSet<Votacion> Votacions { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("server=localhost\\SQLEXPRESS; database=ProyectoProgra5; integrated security=true;Trust Server Certificate=true");
@@ -129,6 +131,27 @@ public partial class ProyectoProgra5Context : DbContext
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.UserxRols)
                 .HasForeignKey(d => d.IdUser)
                 .HasConstraintName("FK__UserxRol__idUser__3C69FB99");
+        });
+
+        modelBuilder.Entity<Votacion>(entity =>
+        {
+            entity.HasKey(e => e.IdVotacion).HasName("PK__Votacion__712150FA9ED5B5B7");
+
+            entity.ToTable("Votacion");
+
+            entity.Property(e => e.IdVotacion).HasColumnName("idVotacion");
+            entity.Property(e => e.IdCandidato).HasColumnName("idCandidato");
+            entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
+
+            entity.HasOne(d => d.IdCandidatoNavigation).WithMany(p => p.Votacions)
+                .HasForeignKey(d => d.IdCandidato)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Votacion__idCand__2CF2ADDF");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Votacions)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Votacion__idUsua__2BFE89A6");
         });
 
         OnModelCreatingPartial(modelBuilder);

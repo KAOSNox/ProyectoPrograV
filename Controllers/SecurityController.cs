@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoProgra5.Models;
 using ProyectoProgra5.Models.Login;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace ProyectoProgra5.Controllers
@@ -63,5 +64,7 @@ namespace ProyectoProgra5.Controllers
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			return LocalRedirect("/");
         }
+
+        public IActionResult Unauthorized() => View();
     }
 }

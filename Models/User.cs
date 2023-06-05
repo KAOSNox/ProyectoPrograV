@@ -14,4 +14,6 @@ public partial class User
     public string Nombre { get; set; } = null!;
 
     public virtual ICollection<UserxRol> UserxRols { get; set; } = new List<UserxRol>();
+
+    public virtual ICollection<Votacion> Votacions { get; set; } = new List<Votacion>();
 }

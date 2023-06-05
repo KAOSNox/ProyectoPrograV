@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoProgra5.Models;
+using System.Data;
 
 
 namespace ProyectoProgra5.Controllers
 {
+	[Authorize(Roles = "Administrador")]
 	public class PartidosController : Controller
 	{
+		
 		private readonly ProyectoProgra5Context _context;
 
 		public PartidosController(ProyectoProgra5Context context)
