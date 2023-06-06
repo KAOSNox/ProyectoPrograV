@@ -26,10 +26,11 @@ namespace ProyectoProgra5.Controllers
         public async Task<IActionResult> Login(Login login)
         {
             User? usuario = _context.Users.Include(x => x.UserxRols)
+                                          .ThenInclude(x => x.IdRolNavigation)
                                         .FirstOrDefault(x => x.Usuario == login.Usuario && x.Contraseña == login.Contraseña);
             try
             {
-				string rolName = usuario.UserxRols.FirstOrDefault().IdUserNavigation.Nombre;
+				string rolName = usuario.UserxRols.FirstOrDefault().IdRolNavigation.Nombre;
 
 				if (usuario != null && rolName != null)
 				{

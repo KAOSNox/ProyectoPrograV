@@ -2,25 +2,43 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="d-flex flex-column justify-content-center align-items-center h-100">
-    <div class="w-50">
-        <div class="row justify-content-end">
-            <a asp-action="create" class="btn btn-success col-2 me-3 mb-2">Crear nuevo</a>
+<div class="row">
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="text-primary fw-bold">Candidatos</h2>
+                <h1 class="fw-normal">@ViewBag.Candidatos</h1>
+            </div>
         </div>
-        <table id="paisesTable" class="table table-striped table-dark w-100 text-center mt-2">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Pais</th>
-                    <th scope="col" class="col-4">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-               
-            </tbody>
-        </table>
     </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="text-primary fw-bold">Usuario</h2>
+                <h1 class="fw-normal">@ViewBag.Usuarios</h1>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="text-primary fw-bold">Partidos</h2>
+                <h1 class="fw-normal">@ViewBag.Partidos</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="text-primary fw-bold">Cargos</h2>
+                <h1 class="fw-normal">@ViewBag.Cargos</h1>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 
 @section Scripts{
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>

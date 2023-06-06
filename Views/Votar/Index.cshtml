@@ -1,0 +1,67 @@
+﻿@model ProyectoProgra5.Models.VotacionModel.VotacionModel[]
+
+@{
+    ViewData["Title"] = "Votar";
+}
+
+@if(true)
+{
+    @foreach(var item in Model)
+    {
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i data-feather="alert-circle" class="me-2"></i>
+            <div>
+                Una vez realizada la votacion no podras volver a votar.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">Elige un cargo para votar</h1>
+                @if(item.voto == false)
+                {
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@item.nombreCargo">
+                        @item.nombreCargo
+                    </button>
+                }
+                <!-- Modal -->
+                <div class="modal fade" id="@item.nombreCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="formModal">
+                                    @for (int i = 0; i < item.candidatos.Count(); i++)
+                                    {
+                                        <input type="radio" class="btn-check" id="@("checkbox"+i)" asp-for="@item.CandidatoID" id="@item.candidatoscheckbox[i]" value="@item.candidatos[i].Id">
+                                        <label class="btn btn-outline-primary" for="@("checkbox"+i)">@item.candidatos[i].Partido</label>
+                                    }
+
+                                    <div class="text-center mt-5">
+                                        <button class="btn btn-outline-success" type="submit">Enviar votacion!</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+    }
+    
+}
+else
+{
+        <div class="card">
+        <div class="card-body">
+            <h1 class="text-center">Gracias tu voto ya fue ingresado.</h1>
+        </div>
+    </div>
+    
+}
+
