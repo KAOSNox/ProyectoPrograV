@@ -1,0 +1,40 @@
+﻿@model List<ProyectoProgra5.Models.Eleccione>
+
+@{
+    ViewData["Title"] = "Elecciones";
+}
+
+<a asp-action="Create" class="btn btn-success mb-3">
+    <i data-feather="plus"></i>Agregar nuevo
+</a>
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Nombre</td>
+                <td>@item.Fecha.ToString("yyyy-MM-dd")</td>
+                <td>@item.Descripcion</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                        <i data-feather="edit-2"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                        <i data-feather="trash-2"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

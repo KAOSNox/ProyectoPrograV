@@ -14,6 +14,4 @@ public partial class Candidato
     public string Cargo { get; set; } = null!;
 
     public string Experencia { get; set; } = null!;
-
-    public virtual ICollection<Votacion> Votacions { get; set; } = new List<Votacion>();
 }

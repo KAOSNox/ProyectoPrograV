@@ -21,6 +21,7 @@ namespace ProyectoProgra5.Controllers
 
 		public IActionResult Index()
         {
+            ViewBag.Elecciones = _context.Elecciones.Count();
             ViewBag.Usuarios = _context.Users.Count();
             ViewBag.Candidatos = _context.Candidatos.Count();
             ViewBag.Partidos = _context.Partidos.Count();

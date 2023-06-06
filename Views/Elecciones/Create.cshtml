@@ -1,12 +1,13 @@
-﻿@model ProyectoProgra5.Models.Partido
+﻿@model ProyectoProgra5.Models.Eleccione
+
 
 @{
-    ViewData["Title"] = "Crear Partido";
+    ViewData["Title"] = "Agregar Elecciones";
 }
 
 <div class="card">
     <div class="card-header">
-        <h1 class="text-center">Formulario para ingresar un Partido</h1>
+        <h1 class="text-center">Formulario para ingresar una nueva Eleccion</h1>
     </div>
     <hr />
     <div class="card-body">
@@ -18,17 +19,17 @@
             </div>
             <!--Input Usuario-->
             <div class="mb-3">
-                <label asp-for="Fundacion " type="datetime-local" max="yyyy-MM-dd" class="form-label">Fecha Fundacion</label>
-                <input asp-for="Fundacion" class="form-control">
+                <label asp-for="Fecha" class="form-label">Fecha</label>
+                <input asp-for="Fecha" class="form-control">
             </div>
             <!--Input Contraseña-->
             <div class="mb-3">
-                <label asp-for="Lider" class="form-label">Nombre del Lider</label>
-                <input asp-for="Lider" class="form-control">
+                <label asp-for="Descripcion" class="form-label">Descripcion</label>
+                <input asp-for="Descripcion" class="form-control">
             </div>
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-success">Agregar</button>
-                <a href="/Partidos/" class="btn btn-danger">Cancelar</a>
+                <a href="/Elecciones/" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
         

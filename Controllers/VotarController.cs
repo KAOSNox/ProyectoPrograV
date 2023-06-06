@@ -27,7 +27,7 @@ namespace ProyectoProgra5.Controllers
 
                     int idUser = int.Parse(User.FindFirstValue("IDUser"));
 
-                    bool voto = _context.Votacions.Any(x => x.IdUsuario == idUser);
+                    bool voto = _context.Cargos.Any();
 
                     votacionCargos[cargos.IndexOf(item)] = new VotacionModel()
                     {
