@@ -1,67 +1,41 @@
-﻿@model ProyectoProgra5.Models.VotacionModel.VotacionModel[]
-
+﻿@model List<ProyectoProgra5.Models.Votaciones.Votaciones>
 @{
-    ViewData["Title"] = "Votar";
+    ViewData["Title"] = "Añadir datos de votacion";
 }
 
-@if(true)
-{
-    @foreach(var item in Model)
-    {
-        <div class="alert alert-danger d-flex align-items-center" role="alert">
-            <i data-feather="alert-circle" class="me-2"></i>
-            <div>
-                Una vez realizada la votacion no podras volver a votar.
-            </div>
-        </div>
+<a asp-action="Create" class="btn btn-success mb-3">
+    <i data-feather="plus"></i>Agregar nuevo
+</a>
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Elecciones</th>
+            <th scope="col">Partido</th>
+            <th scope="col">Mesa</th>
+            <th scope="col">Votos</th>
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Elecciones</td>
+                <td>@item.Partido</td>
+                <td>@item.Mesa</td>
+                <td>@item.Votos</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                        <i data-feather="edit-2"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                        <i data-feather="trash-2"></i>
+                    </a>
+                </td>
+            </tr>
+        }
 
-        <div class="card">
-            <div class="card-body">
-                <h1 class="text-center">Elige un cargo para votar</h1>
-                @if(item.voto == false)
-                {
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@item.nombreCargo">
-                        @item.nombreCargo
-                    </button>
-                }
-                <!-- Modal -->
-                <div class="modal fade" id="@item.nombreCargo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form class="formModal">
-                                    @for (int i = 0; i < item.candidatos.Count(); i++)
-                                    {
-                                        <input type="radio" class="btn-check" id="@("checkbox"+i)" asp-for="@item.CandidatoID" id="@item.candidatoscheckbox[i]" value="@item.candidatos[i].Id">
-                                        <label class="btn btn-outline-primary" for="@("checkbox"+i)">@item.candidatos[i].Partido</label>
-                                    }
-
-                                    <div class="text-center mt-5">
-                                        <button class="btn btn-outline-success" type="submit">Enviar votacion!</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               
-            </div>
-        </div>
-
-    }
-    
-}
-else
-{
-        <div class="card">
-        <div class="card-body">
-            <h1 class="text-center">Gracias tu voto ya fue ingresado.</h1>
-        </div>
-    </div>
-    
-}
-
+    </tbody>
+</table>

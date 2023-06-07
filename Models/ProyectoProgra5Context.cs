@@ -29,9 +29,11 @@ public partial class ProyectoProgra5Context : DbContext
 
     public virtual DbSet<UserxRol> UserxRols { get; set; }
 
+    public virtual DbSet<Votacione> Votaciones { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=DESKTOP-1A1EI0T\\SQLEXPRESS; database=ProyectoProgra5; integrated security=true;Trust Server Certificate=true");
+        => optionsBuilder.UseSqlServer("server=localhost\\SQLEXPRESS; database=ProyectoProgra5; integrated security=true;Trust Server Certificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -145,6 +147,20 @@ public partial class ProyectoProgra5Context : DbContext
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.UserxRols)
                 .HasForeignKey(d => d.IdUser)
                 .HasConstraintName("FK__UserxRol__idUser__3C69FB99");
+        });
+
+        modelBuilder.Entity<Votacione>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Votacion__3213E83F3EFFCBCE");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdElecciones).HasColumnName("idElecciones");
+            entity.Property(e => e.IdPartido).HasColumnName("idPartido");
+            entity.Property(e => e.Mesa)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("mesa");
+            entity.Property(e => e.Votos).HasColumnName("votos");
         });
 
         OnModelCreatingPartial(modelBuilder);

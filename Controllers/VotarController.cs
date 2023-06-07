@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoProgra5.Models;
-using ProyectoProgra5.Models.VotacionModel;
+using ProyectoProgra5.Models.Votaciones;
 using System;
 using System.Security.Claims;
 
@@ -17,65 +17,114 @@ namespace ProyectoProgra5.Controllers
         {
             try
             {
-                List<Cargo> cargos = _context.Cargos.ToList();
-
-                VotacionModel[] votacionCargos = new VotacionModel[cargos.Count];
-                
-
-                foreach (var item in cargos)
+                var Elecciones = _context.Elecciones.ToList();
+                var Partido = _context.Partidos.ToList();
+                List<Votaciones> votacione = _context.Votaciones.Select(x => new Votaciones
                 {
+                    Id = x.Id,
+                    Elecciones = _context.Elecciones.FirstOrDefault(v => v.Id == x.IdElecciones).Nombre,
+                    Partido = _context.Partidos.FirstOrDefault(v => v.Id == x.IdPartido).Nombre,
+                    Mesa = x.Mesa,
+                    Votos = (int)x.Votos
+                }).ToList();
 
-                    int idUser = int.Parse(User.FindFirstValue("IDUser"));
-
-                    bool voto = _context.Cargos.Any();
-
-                    votacionCargos[cargos.IndexOf(item)] = new VotacionModel()
-                    {
-                        nombreCargo = item.Nombre,
-                        idUser = idUser,
-                        voto = voto,
-                        candidatos = _context.Candidatos.Where(x => x.Cargo == item.Nombre).ToList(),
-                        candidatoscheckbox = new bool[_context.Candidatos.Where(x => x.Cargo == item.Nombre).Count()],
-                    };
-                    Array.Fill(votacionCargos[cargos.IndexOf(item)].candidatoscheckbox, false);
-                }
-                return View(votacionCargos);
+                return View(votacione);
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Index");
             }
 
+        }
+
+        public IActionResult Create()
+        {
+            VotacionesCreate votacionesCreate = new VotacionesCreate()
+            {
+                eleccionesList = _context.Elecciones.ToList(),
+                partidosList = _context.Partidos.ToList()
+            };
+            return View(votacionesCreate);
         }
 
         [HttpPost]
-        public IActionResult Votacion(int id, string cargo, VotacionModel votacionCargos)
+        public IActionResult Create(VotacionesCreate votacionesModel)
         {
-            /*try
+            try
             {
-                bool voto = _context.Votacions.Any(x => x.IdUsuario == id);
+                Votacione votacione = new Votacione()
+                {
+                    IdElecciones = votacionesModel.Elecciones,
+                    IdPartido = votacionesModel.Partido,
+                    Mesa = votacionesModel.Mesa,
+                    Votos = votacionesModel.Votos
+                };
 
-                if (!voto)
-                {
-                    Votacion votacion = new Votacion()
-                    {
-                        IdCandidato = votacionModel.CandidatoID,
-                        IdUsuario = id,
-                    };
-                    _context.Votacions.Add(votacion);
-                    _context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
+                _context.Votaciones.Add(votacione);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Index");
-            }*/
+            }
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var Votacion = _context.Votaciones.FirstOrDefault(x => x.Id == id);
+            VotacionesCreate votacionesCreate = new VotacionesCreate()
+            {
+                Id = id,
+                Elecciones = _context.Elecciones.FirstOrDefault(v => v.Id == Votacion.IdElecciones).Id,
+                Partido = _context.Partidos.FirstOrDefault(v => v.Id == Votacion.IdPartido).Id,
+                Mesa = Votacion.Mesa,
+                Votos = (int)Votacion.Votos,
+                eleccionesList = _context.Elecciones.ToList(),
+                partidosList = _context.Partidos.ToList()
+            };
+            return View(votacionesCreate);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, VotacionesCreate votacion)
+        {
+            try
+            {
+                Votacione votacione = _context.Votaciones.FirstOrDefault(x => x.Id == id);
+
+                votacione.IdElecciones = votacion.Elecciones;
+                votacione.IdPartido = votacion.Partido;
+                votacione.Mesa = votacion.Mesa;
+                votacione.Votos = votacion.Votos;
+
+                _context.Votaciones.Update(votacione);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
+
+
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                Votacione votacione = _context.Votaciones.FirstOrDefault(x => x.Id == id);
+                _context.Remove(votacione);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

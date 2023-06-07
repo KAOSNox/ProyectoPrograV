@@ -1,0 +1,51 @@
+﻿@model ProyectoProgra5.Models.Votaciones.VotacionesCreate
+
+@{
+    ViewData["Title"] = "Editar votaciones";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="text-center">Formulario para editar los datos de votaciones</h1>
+    </div>
+    <hr />
+    <div class="card-body">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <!--Input Elecciones-->
+            <div class="mb-3">
+                <label asp-for="Elecciones" class="form-label">Elecciones</label>
+                <select asp-for="Elecciones" class="form-select">
+                    @foreach (var item in Model.eleccionesList)
+                    {
+                        <option value="@item.Id">@item.Nombre</option>
+                    }
+                </select>
+            </div>
+            <!--Input Partido-->
+            <div class="mb-3">
+                <label asp-for="Partido" class="form-label">Partido</label>
+                <select asp-for="Partido" class="form-select">
+                    @foreach (var item in Model.partidosList)
+                    {
+                        <option value="@item.Id">@item.Nombre</option>
+                    }
+                </select>
+            </div>
+            <!--Input Mesa-->
+            <div class="mb-3">
+                <label asp-for="Mesa" class="form-label">Mesa</label>
+                <input asp-for="Mesa" class="form-control">
+            </div>
+            <!--Input Votos-->
+            <div class="mb-3">
+                <label asp-for="Votos" class="form-label">Votos</label>
+                <input asp-for="Votos" class="form-control">
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-success">Edit</button>
+                <a href="/Votar/" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+
+    </div>
+</div>
