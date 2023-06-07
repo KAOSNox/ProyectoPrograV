@@ -13,18 +13,18 @@
 
             <!--Cruds-->
             <li class="sidebar-header">
-                Paginas
+                Inicio
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="/">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Inicio</span>
                 </a>
+                <a class="sidebar-link" href="/Estadistica/">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Estadisticas</span>
+                </a>
             </li>
             <!-- Seccion para el usuario -->
-            @if(roleName == "Usuario")
-            {
-                
-            }else if(roleName == "Administrador")
+            @if(roleName == "Administrador")
             {
                 <!--Administracion-->
                 <li class="sidebar-header">
